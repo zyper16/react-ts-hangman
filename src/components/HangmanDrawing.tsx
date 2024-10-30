@@ -85,15 +85,18 @@ const HEAD = (
   />
 );
 
-export default function HangmanDrawing() {
+const BODY_PARTS = [HEAD, BODY, RIGHT_ARM, LEFT_ARM, RIGHT_LEG, LEFT_LEG];
+
+type HangmanDrawingType = {
+  wrongLettersNumber: number;
+};
+
+export default function HangmanDrawing({
+  wrongLettersNumber,
+}: HangmanDrawingType) {
   return (
     <div style={{ position: "relative" }}>
-      {HEAD}
-      {BODY}
-      {RIGHT_ARM}
-      {LEFT_ARM}
-      {RIGHT_LEG}
-      {LEFT_LEG}
+      {BODY_PARTS.slice(0, wrongLettersNumber)}
       <div
         style={{
           width: "10px",

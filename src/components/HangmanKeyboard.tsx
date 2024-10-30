@@ -1,3 +1,4 @@
+import "./hangmanKeyboard.css";
 const KEYS = Array.from("abcdefghijklmnopqrstuvwxyz");
 
 export default function HangmanKeyboard() {
@@ -10,7 +11,9 @@ export default function HangmanKeyboard() {
       }}
     >
       {KEYS.map(key => (
-        <button key={key}>{key}</button>
+        <button className="btn" key={key}>
+          {key}
+        </button>
       ))}
     </div>
   );
