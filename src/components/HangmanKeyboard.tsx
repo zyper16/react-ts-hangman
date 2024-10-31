@@ -4,13 +4,15 @@ const KEYS = Array.from("abcdefghijklmnopqrstuvwxyz");
 type HangmanKeyboardProps = {
   wrongLetters: string[];
   correctLetters: string[];
-  handleClick: (key: string) => null;
+  handleClick: (key: string) => void;
+  gameStatus?: boolean;
 };
 
 export default function HangmanKeyboard({
   wrongLetters,
   correctLetters,
   handleClick,
+  gameStatus,
 }: HangmanKeyboardProps) {
   return (
     <div
@@ -28,7 +30,7 @@ export default function HangmanKeyboard({
             className={`btn ${isActive ? "active" : ""} 
                       ${isInactive ? "inactive" : ""}`}
             key={key}
-            disabled={isActive || isInactive}
+            disabled={isActive || isInactive || gameStatus}
             onClick={() => handleClick(key)}
           >
             {key}

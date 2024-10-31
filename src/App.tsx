@@ -16,21 +16,26 @@ function App() {
   const wrongLetters = guessedLetters.filter(
     letter => !wordToGuess.includes(letter)
   );
-
   const correctLetters = guessedLetters.filter(letter =>
     wordToGuess.includes(letter)
   );
+
+  const isLooser = wrongLetters.length >= 6;
+  const isWinner = [...wordToGuess].every(letter =>
+    guessedLetters.includes(letter)
+  );
+  const isDone = isLooser || isWinner;
 
   console.log(wordToGuess);
   console.log(wrongLetters);
 
   const processKeyPress = useCallback(
     (key: string) => {
-      if (guessedLetters.includes(key)) return;
+      if (guessedLetters.includes(key) || isDone) return;
 
       setGuessedLetters([...guessedLetters, key]);
     },
-    [guessedLetters]
+    [guessedLetters, isDone]
   );
 
   useEffect(() => {
@@ -59,14 +64,22 @@ function App() {
         alignItems: "center",
       }}
     >
-      <div>Win Lose</div>
+      <div>
+        {isLooser ? "You lost!" : ""}
+        {isWinner ? "You won!" : ""}
+      </div>
       <HangmanDrawing wrongLettersNumber={wrongLetters.length} />
-      <HangmanWord wordToGuess={wordToGuess} guessedLetters={guessedLetters} />
+      <HangmanWord
+        wordToGuess={wordToGuess}
+        guessedLetters={guessedLetters}
+        gameStatus={isDone}
+      />
       <div style={{ alignSelf: "stretch" }}>
         <HangmanKeyboard
           correctLetters={correctLetters}
           wrongLetters={wrongLetters}
           handleClick={processKeyPress}
+          gameStatus={isDone}
         />
       </div>
     </div>
