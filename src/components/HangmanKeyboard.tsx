@@ -1,7 +1,17 @@
 import "./hangmanKeyboard.css";
 const KEYS = Array.from("abcdefghijklmnopqrstuvwxyz");
 
-export default function HangmanKeyboard() {
+type HangmanKeyboardProps = {
+  wrongLetters: string[];
+  correctLetters: string[];
+  handleClick: (key: string) => null;
+};
+
+export default function HangmanKeyboard({
+  wrongLetters,
+  correctLetters,
+  handleClick,
+}: HangmanKeyboardProps) {
   return (
     <div
       style={{
@@ -10,11 +20,21 @@ export default function HangmanKeyboard() {
         gap: ".5rem",
       }}
     >
-      {KEYS.map(key => (
-        <button className="btn" key={key}>
-          {key}
-        </button>
-      ))}
+      {KEYS.map(key => {
+        const isActive = correctLetters.includes(key) ? true : false;
+        const isInactive = wrongLetters.includes(key) ? true : false;
+        return (
+          <button
+            className={`btn ${isActive ? "active" : ""} 
+                      ${isInactive ? "inactive" : ""}`}
+            key={key}
+            disabled={isActive || isInactive}
+            onClick={() => handleClick(key)}
+          >
+            {key}
+          </button>
+        );
+      })}
     </div>
   );
 }
