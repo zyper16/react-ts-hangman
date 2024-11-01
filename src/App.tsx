@@ -4,6 +4,7 @@ import HangmanDrawing from "./components/HangmanDrawing";
 import HangmanWord from "./components/HangmanWord";
 import HangmanKeyboard from "./components/HangmanKeyboard";
 import HangmanRestartButton from "./components/HangmanRestartButton";
+import "./components/hangmanStyles.css";
 import words from "./assets/wordList.json";
 
 function generateRandomWord() {
@@ -75,19 +76,10 @@ function App() {
   }, [processKeyPress]);
 
   return (
-    <div
-      style={{
-        maxWidth: "800px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "2rem",
-        margin: "0 auto",
-        alignItems: "center",
-      }}
-    >
-      <div style={{ fontSize: "2rem", textAlign: "center" }}>
-        {isLooser ? "Congratulations! Hit 'Restart' for a new round." : ""}
-        {isWinner ? "Nice Try! Hit 'Restart' for a new round." : ""}
+    <div className="main-container">
+      <div className="game-status">
+        {isLooser ? "Nice Try! Hit 'Restart' for a new round." : ""}
+        {isWinner ? "Congratulations! Hit 'Restart' for a new round." : ""}
       </div>
       <HangmanRestartButton handleRestartButton={handleRestartButton} />
       <HangmanDrawing wrongLettersNumber={wrongLetters.length} />
@@ -96,7 +88,7 @@ function App() {
         guessedLetters={guessedLetters}
         gameStatus={isDone}
       />
-      <div style={{ alignSelf: "stretch" }}>
+      <div className="keyboard-container">
         <HangmanKeyboard
           correctLetters={correctLetters}
           wrongLetters={wrongLetters}

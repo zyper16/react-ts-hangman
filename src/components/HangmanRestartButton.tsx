@@ -1,4 +1,4 @@
-import "./hangmanKeyboard.css";
+import "./hangmanStyles.css";
 
 type HangmanRestartButtonProps = {
   handleRestartButton: () => void;

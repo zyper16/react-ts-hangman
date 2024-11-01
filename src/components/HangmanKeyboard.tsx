@@ -1,4 +1,4 @@
-import "./hangmanKeyboard.css";
+import "./hangmanStyles.css";
 const KEYS = Array.from("abcdefghijklmnopqrstuvwxyz");
 
 type HangmanKeyboardProps = {
@@ -14,29 +14,20 @@ export default function HangmanKeyboard({
   handleClick,
   gameStatus,
 }: HangmanKeyboardProps) {
-  return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(75px, 1fr))",
-        gap: ".5rem",
-      }}
-    >
-      {KEYS.map(key => {
-        const isActive = correctLetters.includes(key) ? true : false;
-        const isInactive = wrongLetters.includes(key) ? true : false;
-        return (
-          <button
-            className={`btn ${isActive ? "active" : ""} 
-                      ${isInactive ? "inactive" : ""}`}
-            key={key}
-            disabled={isActive || isInactive || gameStatus}
-            onClick={() => handleClick(key)}
-          >
-            {key}
-          </button>
-        );
-      })}
-    </div>
-  );
+  const keyboard = KEYS.map(key => {
+    const isActive = correctLetters.includes(key) ? true : false;
+    const isInactive = wrongLetters.includes(key) ? true : false;
+    return (
+      <button
+        className={`btn ${isActive ? "active" : ""} 
+                  ${isInactive ? "inactive" : ""}`}
+        key={key}
+        disabled={isActive || isInactive || gameStatus}
+        onClick={() => handleClick(key)}
+      >
+        {key}
+      </button>
+    );
+  });
+  return <div className="keyboard">{keyboard}</div>;
 }
