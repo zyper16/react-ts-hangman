@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import HangmanDrawing from "./components/HangmanDrawing";
 import HangmanWord from "./components/HangmanWord";
 import HangmanKeyboard from "./components/HangmanKeyboard";
+import HangmanRestartButton from "./components/HangmanRestartButton";
 import words from "./assets/wordList.json";
 
 function generateRandomWord() {
@@ -29,8 +30,7 @@ function App() {
   console.log(wordToGuess);
   console.log(wrongLetters);
 
-  //Restart Logic
-
+  //Restart Logic "Enter"
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const key = e.key;
@@ -43,6 +43,12 @@ function App() {
 
     return () => document.removeEventListener("keypress", handler);
   });
+
+  // Restart logic - button
+  const handleRestartButton = useCallback(() => {
+    setWordToGuess(generateRandomWord());
+    setGuessedLetters([]);
+  }, []);
 
   const processKeyPress = useCallback(
     (key: string) => {
@@ -79,10 +85,11 @@ function App() {
         alignItems: "center",
       }}
     >
-      <div>
-        {isLooser ? "Congratulations! Press 'Enter' to restart." : ""}
-        {isWinner ? "Nice Try! Press 'Enter' to restart." : ""}
+      <div style={{ fontSize: "2rem", textAlign: "center" }}>
+        {isLooser ? "Congratulations! Hit 'Restart' for a new round." : ""}
+        {isWinner ? "Nice Try! Hit 'Restart' for a new round." : ""}
       </div>
+      <HangmanRestartButton handleRestartButton={handleRestartButton} />
       <HangmanDrawing wrongLettersNumber={wrongLetters.length} />
       <HangmanWord
         wordToGuess={wordToGuess}

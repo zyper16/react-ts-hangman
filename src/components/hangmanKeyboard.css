@@ -24,3 +24,24 @@
 .btn:focus:not(:disabled) {
   background-color: hsl(200, 100%, 75%);
 }
+
+.restart-button {
+  display: inline-block;
+  width: 100px; /* Adjust the size as needed */
+  height: 100px; /* Adjust the size as needed */
+  border-radius: 50%; /* Makes the button round */
+  border: 2px solid grey; /* Grey border */
+  background-color: red; /* Red background */
+  color: white; /* White font */
+  font-size: 16px; /* Adjust the font size as needed */
+  text-align: center;
+  line-height: 100px; /* Centers the text vertically */
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.restart-button:hover {
+  background-color: darkred;
+  /* transform: scale(1.1); */
+}
