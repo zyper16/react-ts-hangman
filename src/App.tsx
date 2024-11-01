@@ -29,6 +29,21 @@ function App() {
   console.log(wordToGuess);
   console.log(wrongLetters);
 
+  //Restart Logic
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const key = e.key;
+      if (key != "Enter") return;
+      setWordToGuess(generateRandomWord());
+      setGuessedLetters([]);
+    };
+
+    document.addEventListener("keypress", handler);
+
+    return () => document.removeEventListener("keypress", handler);
+  });
+
   const processKeyPress = useCallback(
     (key: string) => {
       if (guessedLetters.includes(key) || isDone) return;
@@ -65,8 +80,8 @@ function App() {
       }}
     >
       <div>
-        {isLooser ? "You lost!" : ""}
-        {isWinner ? "You won!" : ""}
+        {isLooser ? "Congratulations! Press 'Enter' to restart." : ""}
+        {isWinner ? "Nice Try! Press 'Enter' to restart." : ""}
       </div>
       <HangmanDrawing wrongLettersNumber={wrongLetters.length} />
       <HangmanWord
